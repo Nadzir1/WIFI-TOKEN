@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wi-Fi Token</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('images/SMKN1PACET.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.3);
+            width: 400px;
+            max-width: 90%;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            transform: translateY(-10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container.active {
+            display: block;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin: 10px 0;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .footer {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
+        .connected-screen {
+            display: none;
+            text-align: center;
+            color: #2ecc71;
+        }
+
+        .connected-screen.active {
+            display: block;
+        }
+
+        .bottom-section {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+        .bottom-section footer {
+            color: white;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Form Token Wi-Fi -->
+    <div class="container" id="form-container">
+        <h1>Wi-Fi Token</h1>
+        <p>Masukkan token Wi-Fi untuk terhubung ke internet.</p>
+        <form id="wifi-form">
+            <input type="text" id="token-input" placeholder="Masukkan Token Anda" required>
+            <button type="submit">Koneksikan</button>
+        </form>
+
+        <div class="footer">
+            <p>&copy; 2024 <span style="font-weight: 600; color: #3498db;">Wi-Fi Service</span>. All rights reserved.</p>
+        </div>
+
+        <p class="error-message" id="error-message">Token salah! Silakan coba lagi.</p>
+    </div>
+
+    <!-- Halaman Berhasil Koneksi -->
+    <div class="container connected-screen" id="connected-container">
+        <h1>Berhasil Terkoneksi</h1>
+        <p>Anda sudah berhasil terhubung ke Wi-Fi.</p>
+    </div>
+
+    <!-- Footer at the bottom of the page -->
+    <div class="bottom-section">
+        <footer>Created by: Nadzir</footer>
+    </div>
+
+    <script>
+        // Daftar token Wi-Fi yang valid
+        const validTokens = ["NADZIR69", "NADZIRCREAZY"];
+
+        // Tangkap elemen yang diperlukan
+        const formContainer = document.getElementById('form-container');
+        const connectedContainer = document.getElementById('connected-container');
+        const errorMessage = document.getElementById('error-message');
+        const wifiForm = document.getElementById('wifi-form');
+        const tokenInput = document.getElementById('token-input');
+
+        // Event listener untuk form submit
+        wifiForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah reload halaman
+
+            const tokenValue = tokenInput.value.trim(); // Ambil nilai token
+
+            // Cek apakah token valid
+            if (validTokens.includes(tokenValue)) {
+                // Sembunyikan form input token
+                formContainer.classList.remove('active');
+                
+                // Tampilkan halaman koneksi berhasil
+                connectedContainer.classList.add('active');
+                errorMessage.style.display = 'none'; // Sembunyikan pesan error
+            } else {
+                // Tampilkan pesan error jika token salah
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        // Pada awalnya tampilkan form
+        formContainer.classList.add('active');
+    </script>
+
+</body>
+</html>
